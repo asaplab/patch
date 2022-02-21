@@ -1,0 +1,14 @@
+diff --git a/app/addons/et_extended_ratings/func.php b/app/addons/et_extended_ratings/func.php
+index cdfa0a3..6342436 100644
+--- a/app/addons/et_extended_ratings/func.php
++++ b/app/addons/et_extended_ratings/func.php
+@@ -36,7 +36,7 @@ function fn_et_extended_ratings_get_discussion_post($object_id, $object_type, $g
+
+ function fn_et_extended_ratings_get_discussion_posts(&$params, $items_per_page, $fields, $join, &$condition, $order_by, &$limit){
+   if (!empty($params['rating_value'])) {
+-    $condition .= " AND ?:discussion_rating.rating_value = ".$params['rating_value'];
++    $condition .= db_quote(" AND ?:discussion_rating.rating_value = ?i", $params['rating_value']);
+   }
+   if (!empty($params['items_per_page'])) {
+     $params['total_items'] = db_get_field("SELECT COUNT(*) FROM ?:discussion_posts $join WHERE $condition");
+
